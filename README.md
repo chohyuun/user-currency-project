@@ -37,7 +37,7 @@ MySQL : Ver 9.1.0
 	"status" : "nomal"
 }
 
-//response
+// response
 201: CREATED
 {
 	"status": "success",
@@ -71,7 +71,7 @@ MySQL : Ver 9.1.0
 ### GET /exchanges/{user_id}
 
 ```java
-//response
+// response
 200: OK
 {
 	"status": "success",
@@ -221,4 +221,4 @@ MySQL : Ver 9.1.0
 
 ---
 
-![스크린샷 2024-11-27 오후 3 58 47](https://github.com/user-attachments/assets/9f30f856-106e-482c-be28-cadd846b4edc)
+![스크린샷 2024-11-27 오후 7 30 04](https://github.com/user-attachments/assets/757f5dec-3df4-4bad-a565-69fdb642be3b)
