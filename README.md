@@ -60,8 +60,7 @@ MySQL : Ver 9.1.0
 		"code": "BAD REQUEST",
 		"message": "필수 값이 모두 입력되지 않았습니다.",
 		"details": "[환전 전 금액 || 환전 후 금액 || 상태값]을 입력해주세요.",
-		"timestamp": "0000-00-00T00:00:00",
-		"path": "/api/v1/exchanges"
+		"timestamp": "0000-00-00T00:00:00"
 	}
 }
 ```
@@ -107,8 +106,7 @@ MySQL : Ver 9.1.0
 		"code": "BAD REQUEST",
 		"message": "request parameter를 확인해 주세요.",
 		"details": "검색할 유저 아이디를 입력해 주세요.",
-		"timestamp": "0000-00-00T00:00:00",
-		"path": "/api/v1/exchanges/"
+		"timestamp": "0000-00-00T00:00:00"
 	}
 }
 
@@ -120,8 +118,7 @@ MySQL : Ver 9.1.0
 		"code": "NOT FOUND",
 		"message": "request parameter를 확인해 주세요.",
 		"details": "없는 유저입니다.",
-		"timestamp": "0000-00-00T00:00:00",
-		"path": "/api/v1/exchanges/5"
+		"timestamp": "0000-00-00T00:00:00"
 	}
 }
 ```
@@ -154,9 +151,8 @@ MySQL : Ver 9.1.0
 		"code": "BAD REQUEST",
 		"message": "request parameter를 확인해 주세요.",
 		"details": "수정할 환전 번호를 입력해 주세요.",
-		"timestamp": "0000-00-00T00:00:00",
-		"path": "/api/v1/exchanges/"
-	}
+		"timestamp": "0000-00-00T00:00:00"
+    }
 }
 
 404: NOT FOUND
@@ -167,8 +163,7 @@ MySQL : Ver 9.1.0
 		"code": "NOT FOUND",
 		"message": "request parameter를 확인해 주세요.",
 		"details": "없는 환전 정보입니다.",
-		"timestamp": "0000-00-00T00:00:00",
-		"path": "/api/v1/exchanges/1"
+		"timestamp": "0000-00-00T00:00:00"
 	}
 }
 ```
@@ -191,8 +186,7 @@ MySQL : Ver 9.1.0
 		"code": "BAD REQUEST",
 		"message": "request parameter를 확인해 주세요.",
 		"details": "삭제할 유저를 입력해 주세요.",
-		"timestamp": "0000-00-00T00:00:00",
-		"path": "/api/v1/users/"
+		"timestamp": "0000-00-00T00:00:00"
 	}
 }
 
@@ -204,8 +198,7 @@ MySQL : Ver 9.1.0
 		"code": "NOT FOUND",
 		"message": "request parameter를 확인해 주세요.",
 		"details": "없는 유저 입니다.",
-		"timestamp": "0000-00-00T00:00:00",
-		"path": "/api/v1/users/5"
+		"timestamp": "0000-00-00T00:00:00"
 	}
 }
 ```
