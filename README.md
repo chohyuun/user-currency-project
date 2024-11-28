@@ -22,7 +22,7 @@ MySQL : Ver 9.1.0
 |----------------|-------------|----------------------|----------|----------|------------|---------------------------------|
 | 환전 요청          | POST        | /exchanges           | 요청 body  | 등록 정보    | 201: 정상 등록 | 400: 필수값 누락                     |
 | 선택 고객 환전 조회    | GET         | /exchanges/{user_id} | 요청 param | 다건 응답 정보 | 200: 정상 조회 | 400: param 누락, 404: 없는 user_id  |
-| 환전 요청 상태 수정    | PATCH       | /exchanges/{id}      | 요청 body  | 수정 정보    | 200: 정상 수정 | 400: 필수값 누락, 404: 없는 id         |
+| 환전 요청 상태 수정    | PATCH       | /exchanges/{id}      | 요청 param | 수정 정보    | 200: 정상 수정 | 400: 필수값 누락, 404: 없는 id         |
 | 고객 삭제          | DELETE      | /users/{user_id}     | 요청 param | X        | 200: 정상 삭제 | 401: 본인이 아닌 경우, 404: 없는 user_id | 
 ### POST /exchanges
 
@@ -33,8 +33,6 @@ MySQL : Ver 9.1.0
 	"userId" : 1,
 	"currentId" : 1,
 	"amountInKrw": 10000,
-	"amountAfterExchange" : 6.99,
-	"status" : "nomal"
 }
 
 // response
@@ -48,7 +46,7 @@ MySQL : Ver 9.1.0
 		"currentId" : 1,
 		"amountInKrw": 10000,
 		"amountAfterExchange" : 6.99,
-		"status" : "nomal",
+		"status" : "NORMAL",
 		"createdAt" : "0000-00-00T00:00:00",
 		"modifiedAt" : "0000-00-00T00:00:00"
 	}
@@ -83,7 +81,7 @@ MySQL : Ver 9.1.0
 			"currentId" : 1,
 			"amountInKrw": 10000,
 			"amountAfterExchange" : 6.99,
-			"status" : "nomal",
+			"status" : "NORMAL",
 			"createdAt" : "0000-00-00T00:00:00",
 			"modifiedAt" : "0000-00-00T00:00:00"
 		},
@@ -93,7 +91,7 @@ MySQL : Ver 9.1.0
 			"currentId" : 1,
 			"amountInKrw": 20000,
 			"amountAfterExchange" : 13.98,
-			"status" : "nomal",
+			"status" : "NORMAL",
 			"createdAt" : "0000-00-00T00:00:00",
 			"modifiedAt" : "0000-00-00T00:00:00"
 		},
@@ -131,11 +129,6 @@ MySQL : Ver 9.1.0
 ### PATCH /exchanges/{id}
 
 ```java
-// request
-{
-	"status" : "[nomal || cancelled]"
-}
-
 // response
 200: OK
 {
@@ -147,7 +140,7 @@ MySQL : Ver 9.1.0
 		"currentId" : 1,
 		"amountInKrw": 10000,
 		"amountAfterExchange" : 6.99,
-		"status" : "cancelled",
+		"status" : "CANCELLED",
 		"createdAt" : "0000-00-00T00:00:00",
 		"modifiedAt" : "0000-00-00T00:00:00"
 	}
