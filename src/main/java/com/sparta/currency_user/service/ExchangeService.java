@@ -2,8 +2,8 @@ package com.sparta.currency_user.service;
 
 import com.sparta.currency_user.dto.ExchangeRequestDto;
 import com.sparta.currency_user.dto.ExchangeResponseDataDto;
-import com.sparta.currency_user.dto.ExchangeStatusRequestDto;
 import com.sparta.currency_user.entity.UserCurrency;
+import com.sparta.currency_user.enums.ExchangeStatus;
 import com.sparta.currency_user.repository.CurrencyRepository;
 import com.sparta.currency_user.repository.ExchangeRepository;
 import com.sparta.currency_user.repository.UserRepository;
@@ -23,7 +23,7 @@ public class ExchangeService {
     private final CurrencyRepository currencyRepository;
 
     public ExchangeResponseDataDto createExchange(ExchangeRequestDto exchangeRequestDto) {
-        UserCurrency userCurrency = new UserCurrency(exchangeRequestDto.getAmountInKrw(), exchangeRequestDto.getStatus());
+        UserCurrency userCurrency = new UserCurrency(exchangeRequestDto.getAmountInKrw(), ExchangeStatus.NORMAL);
 
         userCurrency.setUser(userRepository.findById(exchangeRequestDto.getUserId()));
         userCurrency.setCurrency(currencyRepository.findById(exchangeRequestDto.getCurrencyId()));
@@ -40,25 +40,13 @@ public class ExchangeService {
     public List<ExchangeResponseDataDto> getUserExchange(Long userId) {
         List<UserCurrency> userCurrencyList = exchangeRepository.findAllByUserId(userId);
 
-        return userCurrencyList.stream().map(userCurrency ->
-                new ExchangeResponseDataDto(
-                        userCurrency.getId(),
-                        userCurrency.getUser().getId(),
-                        userCurrency.getCurrency().getId(),
-                        userCurrency.getAmountInKwr(),
-                        userCurrency.getAmountAfterExchange(),
-                        userCurrency.getStatus(),
-                        userCurrency.getCreatedAt(),
-                        userCurrency.getModifiedAt()
-                )
-        ).toList();
+        return userCurrencyList.stream().map(ExchangeResponseDataDto::new).toList();
     }
 
     @Transactional
-    public ExchangeResponseDataDto updateExchange(Long id, ExchangeStatusRequestDto exchangeStatusRequestDto) {
+    public ExchangeResponseDataDto updateExchange(Long id) {
         UserCurrency userCurrency = exchangeRepository.findByIdOrThrow(id);
-
-        userCurrency.update(exchangeStatusRequestDto.getStatus());
+        userCurrency.update(ExchangeStatus.CANCELLED);
 
         return new ExchangeResponseDataDto(userCurrency);
     }

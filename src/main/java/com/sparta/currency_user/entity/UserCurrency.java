@@ -1,7 +1,9 @@
 package com.sparta.currency_user.entity;
 
-import com.sparta.currency_user.dto.ExchangeResponseDataDto;
+import com.sparta.currency_user.enums.ExchangeStatus;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -33,16 +35,18 @@ public class UserCurrency extends BaseEntity {
 
     @Setter
     private BigDecimal amountAfterExchange;
-    private String status;
 
-    public UserCurrency(int amountInKwr, String status) {
+    @Enumerated(value = EnumType.STRING)
+    private ExchangeStatus status;
+
+    public UserCurrency(int amountInKwr, ExchangeStatus status) {
         this.amountInKwr = amountInKwr;
         this.status = status;
     }
 
     public UserCurrency() {}
 
-    public void update(String status) {
+    public void update(ExchangeStatus status) {
         this.status = status;
     }
 

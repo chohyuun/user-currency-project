@@ -1,6 +1,7 @@
 package com.sparta.currency_user.dto;
 
 import com.sparta.currency_user.entity.UserCurrency;
+import com.sparta.currency_user.enums.ExchangeStatus;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -13,7 +14,7 @@ public class ExchangeResponseDataDto {
     private final long currencyId;
     private final int amountInKrw;
     private final BigDecimal amountAfterExchange;
-    private final String status;
+    private final ExchangeStatus status;
     private final LocalDateTime createdAt;
     private final LocalDateTime modifiedAt;
 
@@ -28,7 +29,7 @@ public class ExchangeResponseDataDto {
         this.modifiedAt = userCurrency.getModifiedAt();
     }
 
-    public ExchangeResponseDataDto(long id, Long userId, Long currencyId, int amountInKwr, BigDecimal amountAfterExchange, String status, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+    public ExchangeResponseDataDto(long id, Long userId, Long currencyId, int amountInKwr, BigDecimal amountAfterExchange, ExchangeStatus status, LocalDateTime createdAt, LocalDateTime modifiedAt) {
         this.id = id;
         this.userId = userId;
         this.currencyId = currencyId;
