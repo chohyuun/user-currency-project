@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -41,6 +42,10 @@ public class ExchangeController {
     public ResponseEntity<List<ExchangeResponseDataDto>> getExchange(
             @PathVariable Long userId
     ) {
+        if(userId == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "검색할 유저를 입력해 주세요.");
+        }
+
         List<ExchangeResponseDataDto> exchangeResponseDataDtoList = exchangeService.getUserExchange(userId);
 
         return new ResponseEntity<>(exchangeResponseDataDtoList, HttpStatus.OK);
@@ -53,6 +58,9 @@ public class ExchangeController {
     public ResponseEntity<ExchangeResponseDataDto> update(
             @PathVariable Long id
     ) {
+        if(id == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "취소 처리할 환전 정보를 입력해 주세요.");
+        }
         ExchangeResponseDataDto exchangeResponseDataDto = exchangeService.updateExchange(id);
 
         return new ResponseEntity<>(exchangeResponseDataDto, HttpStatus.OK);

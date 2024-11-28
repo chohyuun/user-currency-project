@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface ExchangeRepository extends JpaRepository<UserCurrency, Long> {
-    default UserCurrency findByIdOrThrow(long id) {
+    default UserCurrency findByIdOrElseThrow(long id) {
         return findById(id).orElseThrow();
     }
 

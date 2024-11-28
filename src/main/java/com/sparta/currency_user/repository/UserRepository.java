@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User findById(long id);
+    default User findByIdOrElseThrow(long id){
+        return findById(id).orElseThrow(()->new RuntimeException("User Not Found"));
+    }
 }

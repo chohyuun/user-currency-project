@@ -25,8 +25,8 @@ public class ExchangeService {
     public ExchangeResponseDataDto createExchange(ExchangeRequestDto exchangeRequestDto) {
         UserCurrency userCurrency = new UserCurrency(exchangeRequestDto.getAmountInKrw(), ExchangeStatus.NORMAL);
 
-        userCurrency.setUser(userRepository.findById(exchangeRequestDto.getUserId()));
-        userCurrency.setCurrency(currencyRepository.findById(exchangeRequestDto.getCurrencyId()));
+        userCurrency.setUser(userRepository.findByIdOrElseThrow(exchangeRequestDto.getUserId()));
+        userCurrency.setCurrency(currencyRepository.findByIdOrElseThrow(exchangeRequestDto.getCurrencyId()));
 
         BigDecimal krw = new BigDecimal(exchangeRequestDto.getAmountInKrw());
         BigDecimal exchange = krw.divide(userCurrency.getCurrency().getExchangeRate(), 2, RoundingMode.HALF_UP);
@@ -45,7 +45,7 @@ public class ExchangeService {
 
     @Transactional
     public ExchangeResponseDataDto updateExchange(Long id) {
-        UserCurrency userCurrency = exchangeRepository.findByIdOrThrow(id);
+        UserCurrency userCurrency = exchangeRepository.findByIdOrElseThrow(id);
         userCurrency.update(ExchangeStatus.CANCELLED);
 
         return new ExchangeResponseDataDto(userCurrency);
