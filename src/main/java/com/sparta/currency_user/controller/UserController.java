@@ -17,7 +17,7 @@ public class UserController {
 
     private final UserService userService;
 
-    private final StatusResponse statusResponse = new StatusResponse("status", 200, null);
+    private final StatusResponse statusResponse = new StatusResponse("success", 200, null);
 
     /**
      * 유저 정보 출력

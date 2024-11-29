@@ -8,6 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.math.BigDecimal;
 
 @RestController
 @RequestMapping("/currencies")
@@ -15,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 public class CurrencyController {
     private final CurrencyService currencyService;
 
-    private final StatusResponse statusResponse = new StatusResponse("status", 200, null);
+    private final StatusResponse statusResponse = new StatusResponse("success", 200, null);
 
     /**
      * 환율 조회
@@ -46,6 +49,12 @@ public class CurrencyController {
     public ResponseEntity<StatusResponse> createCurrency(@RequestBody @Valid CurrencyRequestDto currencyRequestDto) {
         statusResponse.setStatusCode(201);
         statusResponse.setData(currencyService.save(currencyRequestDto));
+
+        int compareTo = currencyRequestDto.getExchangeRate().compareTo(BigDecimal.ZERO);
+
+        if(compareTo <= 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "환율은 0이하가 될 수 없습니다.");
+        }
 
         return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
 

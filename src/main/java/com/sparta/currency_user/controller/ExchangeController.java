@@ -24,7 +24,7 @@ import java.util.List;
 public class ExchangeController {
     private final ExchangeService exchangeService;
 
-    private final StatusResponse statusResponse = new StatusResponse("status", 200, null);
+    private final StatusResponse statusResponse = new StatusResponse("success", 200, null);
 
     /**
      * 환전 정보 저장

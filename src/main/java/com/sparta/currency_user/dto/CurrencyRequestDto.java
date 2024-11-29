@@ -13,7 +13,6 @@ public class CurrencyRequestDto {
     private String currencyName;
 
     @NotNull(message="환율을 입력해 주세요.")
-    @DecimalMin(value = "0.01", message = "0.01보다 작을 수는 없습니다.")
     private BigDecimal exchangeRate;
 
     @NotNull(message="심볼을 입력해 주세요.")
