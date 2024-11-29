@@ -2,6 +2,7 @@ package com.sparta.currency_user.controller;
 
 import com.sparta.currency_user.dto.ExchangeRequestDto;
 import com.sparta.currency_user.dto.ExchangeResponseDataDto;
+import com.sparta.currency_user.dto.StatusResponse;
 import com.sparta.currency_user.service.ExchangeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,23 +24,28 @@ import java.util.List;
 public class ExchangeController {
     private final ExchangeService exchangeService;
 
+    private final StatusResponse statusResponse = new StatusResponse("status", 200, null);
+
     /**
      * 환전 정보 저장
      */
     @PostMapping
-    public ResponseEntity<ExchangeResponseDataDto> createExchange(
+    public ResponseEntity<StatusResponse> createExchange(
             @RequestBody ExchangeRequestDto exchangeRequestDto
     ) {
         ExchangeResponseDataDto exchangeResponseDataDto = exchangeService.createExchange(exchangeRequestDto);
 
-        return new ResponseEntity<>(exchangeResponseDataDto, HttpStatus.CREATED);
+        statusResponse.setStatusCode(201);
+        statusResponse.setData(exchangeResponseDataDto);
+
+        return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 
     /**
      * 선택 유저 환전 조회
      */
     @GetMapping("/{userId}")
-    public ResponseEntity<List<ExchangeResponseDataDto>> getExchange(
+    public ResponseEntity<StatusResponse> getExchange(
             @PathVariable Long userId
     ) {
         if(userId == null) {
@@ -48,14 +54,17 @@ public class ExchangeController {
 
         List<ExchangeResponseDataDto> exchangeResponseDataDtoList = exchangeService.getUserExchange(userId);
 
-        return new ResponseEntity<>(exchangeResponseDataDtoList, HttpStatus.OK);
+        statusResponse.setStatusCode(200);
+        statusResponse.setData(exchangeResponseDataDtoList);
+
+        return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
 
     /**
      * 환전 정보 업데이트
      */
     @PatchMapping("/{id}")
-    public ResponseEntity<ExchangeResponseDataDto> update(
+    public ResponseEntity<StatusResponse> update(
             @PathVariable Long id
     ) {
         if(id == null) {
@@ -63,7 +72,10 @@ public class ExchangeController {
         }
         ExchangeResponseDataDto exchangeResponseDataDto = exchangeService.updateExchange(id);
 
-        return new ResponseEntity<>(exchangeResponseDataDto, HttpStatus.OK);
+        statusResponse.setStatusCode(200);
+        statusResponse.setData(exchangeResponseDataDto);
+
+        return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
 
 }

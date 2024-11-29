@@ -1,6 +1,6 @@
 package com.sparta.currency_user.controller;
 
-import com.sparta.currency_user.dto.ErrorResponse;
+import com.sparta.currency_user.dto.StatusResponse;
 import com.sparta.currency_user.dto.ErrorResponseData;
  import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ import java.util.Objects;
 public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgumentExceptionNotFound(
+    public ResponseEntity<StatusResponse> handleIllegalArgumentExceptionNotFound(
             IllegalArgumentException exception
     ) {
         ErrorResponseData errorResponseData = new ErrorResponseData(
@@ -26,14 +26,14 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now()
         );
 
-        ErrorResponse errorResponse = new ErrorResponse("error", 404, errorResponseData);
+        StatusResponse statusResponse = new StatusResponse("error", 404, errorResponseData);
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(statusResponse, HttpStatus.NOT_FOUND);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ErrorResponse> handlerMethodArgumentNotValidExceptionBadRequest(
+    public ResponseEntity<StatusResponse> handlerMethodArgumentNotValidExceptionBadRequest(
             MethodArgumentNotValidException exception
     ) {
         ErrorResponseData errorResponseData = new ErrorResponseData(
@@ -43,13 +43,13 @@ public class GlobalExceptionHandler {
                 LocalDateTime.now()
         );
 
-        ErrorResponse errorResponse = new ErrorResponse("error", 400, errorResponseData);
+        StatusResponse statusResponse = new StatusResponse("error", 400, errorResponseData);
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(statusResponse, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(
+    public ResponseEntity<StatusResponse> handleIllegalArgumentException(
             Exception exception
     ) {
 
@@ -61,9 +61,9 @@ public class GlobalExceptionHandler {
         );
 
 
-        ErrorResponse errorResponse = new ErrorResponse("error", 404, errorResponseData);
+        StatusResponse statusResponse = new StatusResponse("error", 404, errorResponseData);
 
-        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(statusResponse, HttpStatus.NOT_FOUND);
     }
 
 }

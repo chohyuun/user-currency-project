@@ -1,7 +1,7 @@
 package com.sparta.currency_user.controller;
 
+import com.sparta.currency_user.dto.StatusResponse;
 import com.sparta.currency_user.dto.UserRequestDto;
-import com.sparta.currency_user.dto.UserResponseDto;
 import com.sparta.currency_user.service.UserService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -10,8 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/users")
 @RequiredArgsConstructor
@@ -19,25 +17,50 @@ public class UserController {
 
     private final UserService userService;
 
+    private final StatusResponse statusResponse = new StatusResponse("status", 200, null);
+
+    /**
+     * 유저 정보 출력
+     */
     @GetMapping
-    public ResponseEntity<List<UserResponseDto>> findUsers() {
-        return ResponseEntity.ok().body(userService.findAll());
+    public ResponseEntity<StatusResponse> findUsers() {
+
+        statusResponse.setStatusCode(200);
+        statusResponse.setData(userService.findAll());
+
+        return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
 
+    /**
+     * 유저 단건 조회
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponseDto> findUser(@PathVariable Long id) {
+    public ResponseEntity<StatusResponse> findUser(@PathVariable Long id) {
         if(id == null) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "검색할 유저를 입력해 주세요.");
         }
 
-        return ResponseEntity.ok().body(userService.findById(id));
+        statusResponse.setStatusCode(200);
+        statusResponse.setData(userService.findById(id));
+
+        return new ResponseEntity<>(statusResponse, HttpStatus.OK);
     }
 
+    /**
+     * 유저 생성
+     */
     @PostMapping
-    public ResponseEntity<UserResponseDto> createUser(@RequestBody @Valid UserRequestDto userRequestDto) {
-        return ResponseEntity.ok().body(userService.save(userRequestDto));
+    public ResponseEntity<StatusResponse> createUser(@RequestBody @Valid UserRequestDto userRequestDto) {
+
+        statusResponse.setStatusCode(201);
+        statusResponse.setData(userService.save(userRequestDto));
+
+        return new ResponseEntity<>(statusResponse, HttpStatus.CREATED);
     }
 
+    /**
+     * 유저 삭제
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
